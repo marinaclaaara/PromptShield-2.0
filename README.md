@@ -41,7 +41,7 @@ curl -X POST localhost:8000/predict -H 'Content-Type: application/json' \
 
 ## Dados: leia antes de confiar nos números
 
-* **Todos os 2.854 exemplos de treino/validação/teste são sintéticos**, gerados por 63 modelos de frase com campos variáveis, e **nenhum foi revisado por humanos** (colunas `origem_dado` e `revisado_humano`).
+* **Todos os 2.854 exemplos de treino/validação/teste são sintéticos**, gerados por 64 modelos de frase com campos variáveis, e **nenhum foi revisado por humanos** (colunas `origem_dado` e `revisado_humano`).
 * A meta de "2.000 exemplos revisados" **não foi atingida**: temos o volume, mas não a revisão.
 * Divisão **por modelo de frase** (`group`): um molde inteiro vai para um só conjunto. Texto duplicado entre conjuntos: 0 (verificado por teste automatizado).
 * Conjunto **externo**: as 46 frases escritas à mão pelo grupo original, nunca usadas no treino nem na escolha do modelo ou dos limiares.
