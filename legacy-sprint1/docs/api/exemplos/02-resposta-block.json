@@ -1,0 +1,7 @@
+{
+  "decision": "BLOCK",
+  "risk_score": 0.94,
+  "attack_types": ["PI_DIRECT_OVERRIDE", "PI_DATA_EXFILTRATION"],
+  "reason_codes": ["HIGH_RISK_SCORE"],
+  "trace_id": "trace-abc"
+}

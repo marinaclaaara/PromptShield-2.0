@@ -1,0 +1,7 @@
+# NÃO TESTADO (sem Docker no ambiente de desenvolvimento).
+services:
+  api:
+    build: .
+    ports: ["8000:8000"]
+    environment:
+      PROMPTSHIELD_MODEL_PATH: /app/artifacts/model.joblib

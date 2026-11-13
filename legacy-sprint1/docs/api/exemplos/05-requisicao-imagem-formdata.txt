@@ -1,0 +1,17 @@
+POST /v1/analyze
+Authorization: Bearer <token>
+Content-Type: multipart/form-data
+
+file          comunicado.png   (arquivo)
+file_type     image
+source_type   IMAGE_TEXT
+metadata      {"origem": "comunicado-interno"}
+
+Resposta (exemplo, imagem com texto pequeno e de baixo contraste):
+{
+  "decision": "REVIEW",
+  "risk_score": 0.58,
+  "attack_types": ["PI_VISUAL_TEXT"],
+  "reason_codes": ["LOW_OCR_CONFIDENCE"],
+  "trace_id": "trace-ghi"
+}

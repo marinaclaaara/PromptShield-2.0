@@ -1,0 +1,206 @@
+{
+  "dataset": {
+    "total": 2854,
+    "por_split": {
+      "train": 1962,
+      "val": 490,
+      "test": 402
+    },
+    "por_idioma": {
+      "pt": 1510,
+      "en": 1344
+    },
+    "por_familia": {
+      "pedido_comum": 523,
+      "ignorar_instrucoes": 472,
+      "vazar_dados": 463,
+      "extrair_prompt": 427,
+      "correcao_legitima": 353,
+      "jailbreak_papel": 331,
+      "educacao_seguranca": 143,
+      "pedido_sensivel_legitimo": 142
+    },
+    "ataques": 1693,
+    "hard_negatives": 638,
+    "origem": "100% sintetico_template (NAO revisado por humanos); externo = 46 frases do grupo original",
+    "vazamento_verificado": {
+      "texto_train_val": 0,
+      "texto_train_test": 0,
+      "texto_val_test": 0,
+      "grupo_train_val": 0,
+      "grupo_train_test": 0,
+      "grupo_val_test": 0
+    },
+    "hash": "d647c732f3"
+  },
+  "modelos": {
+    "tfidf_logreg": {
+      "limiares": {
+        "t1_review": 0.5399,
+        "t2_block": 0.669
+      },
+      "validacao": {
+        "n": 490,
+        "accuracy": 0.9959,
+        "precision": 0.9924,
+        "recall": 1.0,
+        "f1": 0.9962,
+        "roc_auc": 1.0,
+        "matriz_confusao": {
+          "tn": 226,
+          "fp": 2,
+          "fn": 0,
+          "tp": 262
+        },
+        "falsos_positivos": 2,
+        "falsos_negativos": 0,
+        "fpr_hard_negatives": {
+          "fp": 2,
+          "total": 114
+        },
+        "distribuicao_decisao": {
+          "ALLOW": 226,
+          "REVIEW": 7,
+          "BLOCK": 257
+        }
+      },
+      "teste_sintetico_moldes_novos": {
+        "n": 402,
+        "accuracy": 0.9353,
+        "precision": 0.9058,
+        "recall": 1.0,
+        "f1": 0.9506,
+        "roc_auc": 0.9742,
+        "matriz_confusao": {
+          "tn": 126,
+          "fp": 26,
+          "fn": 0,
+          "tp": 250
+        },
+        "falsos_positivos": 26,
+        "falsos_negativos": 0,
+        "fpr_hard_negatives": {
+          "fp": 26,
+          "total": 86
+        },
+        "distribuicao_decisao": {
+          "ALLOW": 126,
+          "REVIEW": 11,
+          "BLOCK": 265
+        }
+      },
+      "externo_46_frases_escritas_a_mao": {
+        "n": 46,
+        "accuracy": 0.913,
+        "precision": 0.875,
+        "recall": 0.9545,
+        "f1": 0.913,
+        "roc_auc": 0.9735,
+        "matriz_confusao": {
+          "tn": 21,
+          "fp": 3,
+          "fn": 1,
+          "tp": 21
+        },
+        "falsos_positivos": 3,
+        "falsos_negativos": 1,
+        "fpr_hard_negatives": {
+          "fp": 3,
+          "total": 14
+        },
+        "distribuicao_decisao": {
+          "ALLOW": 22,
+          "REVIEW": 3,
+          "BLOCK": 21
+        }
+      }
+    },
+    "tfidf_linearsvm": {
+      "limiares": {
+        "t1_review": 0.439,
+        "t2_block": 0.7324
+      },
+      "validacao": {
+        "n": 490,
+        "accuracy": 0.9959,
+        "precision": 0.9924,
+        "recall": 1.0,
+        "f1": 0.9962,
+        "roc_auc": 1.0,
+        "matriz_confusao": {
+          "tn": 226,
+          "fp": 2,
+          "fn": 0,
+          "tp": 262
+        },
+        "falsos_positivos": 2,
+        "falsos_negativos": 0,
+        "fpr_hard_negatives": {
+          "fp": 2,
+          "total": 114
+        },
+        "distribuicao_decisao": {
+          "ALLOW": 226,
+          "REVIEW": 7,
+          "BLOCK": 257
+        }
+      },
+      "teste_sintetico_moldes_novos": {
+        "n": 402,
+        "accuracy": 0.9403,
+        "precision": 0.9124,
+        "recall": 1.0,
+        "f1": 0.9542,
+        "roc_auc": 0.9737,
+        "matriz_confusao": {
+          "tn": 128,
+          "fp": 24,
+          "fn": 0,
+          "tp": 250
+        },
+        "falsos_positivos": 24,
+        "falsos_negativos": 0,
+        "fpr_hard_negatives": {
+          "fp": 24,
+          "total": 86
+        },
+        "distribuicao_decisao": {
+          "ALLOW": 128,
+          "REVIEW": 28,
+          "BLOCK": 246
+        }
+      },
+      "externo_46_frases_escritas_a_mao": {
+        "n": 46,
+        "accuracy": 0.913,
+        "precision": 0.875,
+        "recall": 0.9545,
+        "f1": 0.913,
+        "roc_auc": 0.983,
+        "matriz_confusao": {
+          "tn": 21,
+          "fp": 3,
+          "fn": 1,
+          "tp": 21
+        },
+        "falsos_positivos": 3,
+        "falsos_negativos": 1,
+        "fpr_hard_negatives": {
+          "fp": 3,
+          "total": 14
+        },
+        "distribuicao_decisao": {
+          "ALLOW": 22,
+          "REVIEW": 7,
+          "BLOCK": 17
+        }
+      }
+    }
+  },
+  "modelo_escolhido": {
+    "nome": "tfidf_logreg",
+    "versao": "2.0.0-tfidf_logreg-d647c732f3",
+    "criterio": "maior F1 na validacao; empate -> primeiro da lista (o mais simples). test e externo nao participam"
+  },
+  "gerado_em": "2026-11-13T12:30:51+00:00"
+}

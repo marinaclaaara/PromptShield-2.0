@@ -1,0 +1,7 @@
+{
+  "decision": "ALLOW",
+  "risk_score": 0.07,
+  "attack_types": [],
+  "reason_codes": [],
+  "trace_id": "trace-def"
+}
