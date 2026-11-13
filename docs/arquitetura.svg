@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 330" font-family="system-ui, sans-serif" font-size="13">
+  <defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#475569"/></marker></defs>
+  <rect width="760" height="330" fill="#ffffff"/>
+  <text x="380" y="26" text-anchor="middle" font-size="16" font-weight="700" fill="#0f172a">PromptShield 2.0 - fluxo de uma análise</text>
+  <g fill="#e0e7ff" stroke="#4f46e5" stroke-width="1.5"><rect x="20" y="60" width="130" height="64" rx="10"/></g>
+  <text x="85" y="88" text-anchor="middle" fill="#0f172a" font-weight="600">Cliente</text><text x="85" y="106" text-anchor="middle" fill="#334155">React ou curl</text>
+  <g fill="#fef3c7" stroke="#d97706" stroke-width="1.5"><rect x="200" y="60" width="170" height="64" rx="10"/></g>
+  <text x="285" y="82" text-anchor="middle" fill="#0f172a" font-weight="600">API FastAPI</text><text x="285" y="99" text-anchor="middle" fill="#334155">chave Bearer, rate limit,</text><text x="285" y="114" text-anchor="middle" fill="#334155">validação de entrada</text>
+  <g fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"><rect x="420" y="60" width="150" height="64" rx="10"/></g>
+  <text x="495" y="82" text-anchor="middle" fill="#0f172a" font-weight="600">Normalização</text><text x="495" y="99" text-anchor="middle" fill="#334155">acentos, invisíveis,</text><text x="495" y="114" text-anchor="middle" fill="#334155">Base64 decodificado</text>
+  <g fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"><rect x="600" y="60" width="140" height="64" rx="10"/></g>
+  <text x="670" y="88" text-anchor="middle" fill="#0f172a" font-weight="600">TF-IDF + LogReg</text><text x="670" y="106" text-anchor="middle" fill="#334155">score de risco 0 a 1</text>
+  <g fill="#fee2e2" stroke="#dc2626" stroke-width="1.5"><rect x="600" y="190" width="140" height="64" rx="10"/></g>
+  <text x="670" y="216" text-anchor="middle" fill="#0f172a" font-weight="600">Decisão</text><text x="670" y="234" text-anchor="middle" fill="#334155">ALLOW / REVIEW / BLOCK</text>
+  <g fill="#f1f5f9" stroke="#64748b" stroke-width="1.5"><rect x="380" y="190" width="170" height="64" rx="10"/></g>
+  <text x="465" y="214" text-anchor="middle" fill="#0f172a" font-weight="600">Log de auditoria</text><text x="465" y="231" text-anchor="middle" fill="#334155">trace_id, decisão, score,</text><text x="465" y="246" text-anchor="middle" fill="#334155">hash do texto (sem o texto)</text>
+  <g fill="#e0e7ff" stroke="#4f46e5" stroke-width="1.5"><rect x="200" y="190" width="150" height="64" rx="10"/></g>
+  <text x="275" y="216" text-anchor="middle" fill="#0f172a" font-weight="600">Resposta JSON</text><text x="275" y="234" text-anchor="middle" fill="#334155">decision, risk_score, trace_id</text>
+  <g stroke="#475569" stroke-width="1.8" fill="none" marker-end="url(#a)">
+    <path d="M150 92H196"/><path d="M370 92H416"/><path d="M570 92H596"/><path d="M670 124V186"/><path d="M596 222H554"/><path d="M380 222H354"/><path d="M200 222H85V128"/>
+  </g>
+  <text x="380" y="290" text-anchor="middle" fill="#475569">O limiar de REVIEW e BLOCK vem da validação. O texto analisado é tratado só como dado: nunca é executado.</text>
+  <text x="380" y="310" text-anchor="middle" fill="#b45309" font-weight="600">Camada de detecção: reduz o risco, não o elimina.</text>
+</svg>

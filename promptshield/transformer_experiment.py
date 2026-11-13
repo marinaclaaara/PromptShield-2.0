@@ -17,7 +17,6 @@ from __future__ import annotations
 
 import argparse
 import json
-from pathlib import Path
 
 import numpy as np
 import pandas as pd
@@ -37,12 +36,12 @@ def _scores_zeroshot(textos: list[str], nome_modelo: str) -> np.ndarray:
     return np.array([next(x["score"] for x in item if x["label"].upper().startswith("INJ")) for item in saida])
 
 
-def _scores_finetune(tr: pd.DataFrame, dfs: dict[str, pd.DataFrame], epocas: int, nome_modelo: str) -> dict[str, np.ndarray]:
+def _scores_finetune(tr: pd.DataFrame, dfs: dict[str, pd.DataFrame], epocas: int,
+                     nome_modelo: str) -> dict[str, np.ndarray]:
     """Fine-tuning completo (cabeça + encoder) com Trainer. Requer GPU para ser prático."""
     import torch
     from datasets import Dataset
-    from transformers import (AutoModelForSequenceClassification, AutoTokenizer,
-                              Trainer, TrainingArguments)
+    from transformers import AutoModelForSequenceClassification, AutoTokenizer, Trainer, TrainingArguments
 
     tok = AutoTokenizer.from_pretrained(nome_modelo)
     modelo = AutoModelForSequenceClassification.from_pretrained(nome_modelo, num_labels=2,
@@ -51,7 +50,8 @@ def _scores_finetune(tr: pd.DataFrame, dfs: dict[str, pd.DataFrame], epocas: int
     def tokenizar(lote):  # padding dinâmico fica por conta do Trainer
         return tok(lote["texto"], truncation=True, max_length=256)
 
-    ds_tr = Dataset.from_pandas(tr[["texto", "rotulo"]].rename(columns={"rotulo": "labels"})).map(tokenizar, batched=True)
+    base = tr[["texto", "rotulo"]].rename(columns={"rotulo": "labels"})
+    ds_tr = Dataset.from_pandas(base).map(tokenizar, batched=True)
     args = TrainingArguments(output_dir=str(RAIZ / "artifacts" / "transformer_ckpt"), num_train_epochs=epocas,
                              per_device_train_batch_size=16, learning_rate=2e-5, weight_decay=0.01,
                              seed=42, save_strategy="no", report_to="none", fp16=torch.cuda.is_available())
@@ -62,7 +62,8 @@ def _scores_finetune(tr: pd.DataFrame, dfs: dict[str, pd.DataFrame], epocas: int
     for nome, d in dfs.items():
         ps = []
         for i in range(0, len(d), 32):
-            enc = tok(list(d["texto"].iloc[i:i + 32]), return_tensors="pt", padding=True, truncation=True, max_length=256)
+            lote = list(d["texto"].iloc[i:i + 32])
+            enc = tok(lote, return_tensors="pt", padding=True, truncation=True, max_length=256)
             enc = {k: v.to(modelo.device) for k, v in enc.items()}
             with torch.no_grad():
                 ps.append(torch.softmax(modelo(**enc).logits, dim=-1)[:, 1].cpu().numpy())

@@ -25,9 +25,15 @@ import pandas as pd
 from sklearn.calibration import CalibratedClassifierCV
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.linear_model import LogisticRegression
-from sklearn.metrics import (accuracy_score, confusion_matrix, f1_score,
-                             precision_recall_curve, precision_score,
-                             recall_score, roc_auc_score)
+from sklearn.metrics import (
+    accuracy_score,
+    confusion_matrix,
+    f1_score,
+    precision_recall_curve,
+    precision_score,
+    recall_score,
+    roc_auc_score,
+)
 from sklearn.pipeline import Pipeline
 from sklearn.svm import LinearSVC
 
@@ -128,7 +134,10 @@ def main(saida: Path, legacy_csv: Path, cap_por_molde: int = 60) -> dict:
     melhor_nome, melhor_f1, melhor_pack = None, -1.0, None
     for nome, pipe in montar_modelos().items():
         pipe.fit(tr["texto"], tr["rotulo"])
-        score = lambda d: pipe.predict_proba(d["texto"])[:, 1]  # noqa: E731
+        def score(d: pd.DataFrame, modelo: Pipeline = pipe) -> np.ndarray:
+            """Probabilidade de ataque; `modelo=pipe` fixa o pipeline desta volta do laço."""
+            return modelo.predict_proba(d["texto"])[:, 1]
+
         t1, t2 = escolher_limiares(va["rotulo"].to_numpy(), score(va))
         mets = {
             "limiares": {"t1_review": round(t1, 4), "t2_block": round(t2, 4)},
@@ -143,8 +152,9 @@ def main(saida: Path, legacy_csv: Path, cap_por_molde: int = 60) -> dict:
 
     pipe, t1, t2 = melhor_pack
     versao = f"{__version__}-{melhor_nome}-{dataset_hash}"
-    relatorio["modelo_escolhido"] = {"nome": melhor_nome, "versao": versao,
-                                     "criterio": "maior F1 na validacao; empate -> primeiro da lista (o mais simples). test e externo nao participam"}
+    criterio = ("maior F1 na validacao; empate -> primeiro da lista (o mais simples). "
+                "test e externo nao participam")
+    relatorio["modelo_escolhido"] = {"nome": melhor_nome, "versao": versao, "criterio": criterio}
     joblib.dump({"pipeline": pipe, "t1": t1, "t2": t2, "versao": versao,
                  "metricas": relatorio["modelos"][melhor_nome]}, saida / "model.joblib")
     relatorio["gerado_em"] = datetime.now(timezone.utc).isoformat(timespec="seconds")
@@ -164,6 +174,7 @@ if __name__ == "__main__":
         print(f"\n== {nome}  limiares={m['limiares']}")
         for conj in ("validacao", "teste_sintetico_moldes_novos", "externo_46_frases_escritas_a_mao"):
             x = m[conj]
+            hn = x["fpr_hard_negatives"]
             print(f"  {conj:<36} n={x['n']:<4} P={x['precision']:.3f} R={x['recall']:.3f} "
-                  f"F1={x['f1']:.3f} AUC={x['roc_auc']:.3f} FP={x['falsos_positivos']} FN={x['falsos_negativos']} "
-                  f"FPR_hn={x['fpr_hard_negatives']['fp']}/{x['fpr_hard_negatives']['total']}")
+                  f"F1={x['f1']:.3f} AUC={x['roc_auc']:.3f} FP={x['falsos_positivos']} "
+                  f"FN={x['falsos_negativos']} FPR_hn={hn['fp']}/{hn['total']}")

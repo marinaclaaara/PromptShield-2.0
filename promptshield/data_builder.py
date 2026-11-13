@@ -235,7 +235,7 @@ def _gerar_de_skeleton(sk: Skeleton, cap: int, rng: random.Random) -> list[dict]
     rng.shuffle(espaco)
     saida = []
     for combo, i_carrier in espaco[:cap]:
-        texto = molde.format(**dict(zip(nomes, combo)))
+        texto = molde.format(**dict(zip(nomes, combo, strict=True)))
         texto = texto[0].upper() + texto[1:]
         source_type, carrier = carriers[i_carrier]
         extras = {k: rng.choice(v) for k, v in slots.items()}  # preenche {MES}, {N}...

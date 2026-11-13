@@ -1,0 +1,21 @@
+{
+  "name": "promptshield-frontend",
+  "private": true,
+  "version": "2.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "node --test src/lib/stats.test.js",
+    "smoke": "esbuild scripts/smoke.entry.jsx --bundle --packages=external --platform=node --format=esm --jsx=automatic --outfile=.smoke.mjs --log-level=error && node .smoke.mjs"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.3.4",
+    "vite": "^6.0.0"
+  }
+}

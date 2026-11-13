@@ -19,20 +19,32 @@ Decide `ALLOW`, `REVIEW` ou `BLOCK` para um texto antes de ele chegar a um agent
 | Pré-processamento (acentos, caracteres invisíveis, Base64) | Implementado e testado |
 | Dataset v2: 2.854 exemplos PT/EN, split por grupo, sem vazamento | Gerado e verificado por teste |
 | TF-IDF + Regressão Logística e TF-IDF + Linear SVM | Treinados e avaliados |
-| API FastAPI (`/predict`, `/batch`, `/health`, `/metrics`) | Implementada, 25 testes passando e chamada real por HTTP |
+| API FastAPI (`/predict`, `/batch`, `/health`, `/metrics`) com autenticação Bearer e rate limit | Implementada, 32 testes Python passando, lint limpo (ruff) e chamadas reais por HTTP |
 | Transformer pré-treinado e fine-tuning | **Código escrito, NÃO executado** (sem GPU e sem acesso ao Hugging Face) |
-| Interface React | Não iniciada |
+| Interface React (analisar, histórico, dashboard em SVG, métricas do modelo) | Implementada. Build OK, 5 testes Node e teste de integração contra a API real (não testada em navegador) |
 | Docker / Compose | Escritos, **não testados** (sem Docker no ambiente) |
-| Publicação no Hugging Face, deploy, CI | Não feitos |
+| CI (GitHub Actions) | Escrito, **não executado** |
+| Publicação no Hugging Face e deploy | Não feitos (exigem sua autorização e conta) |
 
 ## Como rodar
 
 ```bash
 pip install -r requirements.txt
 python -m promptshield.train            # gera data/dataset_v2.csv, artifacts/model.joblib e metrics.json
-python -m pytest -q                     # 25 testes
+python -m pytest -q                     # 32 testes
+ruff check promptshield tests           # lint
 uvicorn promptshield.api:app --port 8000   # documentação em http://localhost:8000/docs
 ```
+
+Interface React (em outro terminal, com a API rodando):
+
+```bash
+cd frontend && npm install && npm run dev      # http://localhost:5173
+npm test                                       # testes das funções de estatística
+API_URL=http://localhost:8000 API_KEY=... npm run smoke   # integração com a API real
+```
+
+Para exigir chave: `PROMPTSHIELD_API_KEYS=minha-chave uvicorn promptshield.api:app`. Limite: `RATE_LIMIT_PER_MIN` (padrão 120).
 
 ```bash
 curl -X POST localhost:8000/predict -H 'Content-Type: application/json' \
@@ -74,7 +86,9 @@ REVIEW e BLOCK contam como "ataque previsto". Limiares escolhidos na validação
 
 Implementado: validação de entrada (tamanho, vazio, lote limitado); texto tratado só como dado; normalização contra evasão por acento, invisíveis e Base64; **log com hash do texto, nunca o texto bruto** (testado); erros sem detalhes internos.
 
-**Não implementado ainda:** autenticação e rate limit na API, controle de permissões de ferramentas, separação de instruções confiáveis × conteúdo não confiável no agente consumidor, OCR/áudio.
+Também implementado: autenticação por chave Bearer (comparação em tempo constante) e rate limit por chave ou IP (janela de 60 s, **em memória de um único processo**: não serve a vários workers sem um armazenamento compartilhado).
+
+**Não implementado ainda:** controle de permissões de ferramentas, separação de instruções confiáveis × conteúdo não confiável no agente consumidor, OCR/áudio.
 
 **Limitações conhecidas:** não cobre paráfrase semântica, trocas de idioma fora de PT/EN, homóglifos (ex.: letras cirílicas parecidas com latinas) nem ataques multi-turno.
 
@@ -82,7 +96,10 @@ Implementado: validação de entrada (tamanho, vazio, lote limitado); texto trat
 
 ```
 promptshield/   preprocess.py, data_builder.py, train.py, detector.py, api.py, transformer_experiment.py
-tests/          25 testes (pré-processamento, dataset, API)
+tests/          32 testes (pré-processamento, dataset, API, autenticação)
+frontend/       interface React + Vite
+docs/           arquitetura.svg
+MODEL_CARD.md   ficha do modelo
 data/           dataset_v2.csv (gerado)
 artifacts/      metrics.json (versionado); model.joblib (gerado, fora do git)
 legacy-sprint1/ trabalho original do grupo, intocado
@@ -90,6 +107,8 @@ legacy-sprint1/ trabalho original do grupo, intocado
 
 ## Próximos passos
 
+![Arquitetura](docs/arquitetura.svg)
+
 1. Revisão humana de uma amostra do dataset e inclusão de dados públicos com licença confirmada.
 2. Rodar `transformer_experiment.py` em ambiente com GPU e acesso ao Hugging Face; registrar os números reais.
-3. Interface React, autenticação, rate limit, CI e model card.
+3. Rodar o CI no GitHub e testar a interface em navegador real.

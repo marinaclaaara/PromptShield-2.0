@@ -202,5 +202,5 @@
     "versao": "2.0.0-tfidf_logreg-d647c732f3",
     "criterio": "maior F1 na validacao; empate -> primeiro da lista (o mais simples). test e externo nao participam"
   },
-  "gerado_em": "2026-11-13T12:30:51+00:00"
+  "gerado_em": "2026-11-13T12:43:09+00:00"
 }

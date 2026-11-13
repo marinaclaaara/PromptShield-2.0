@@ -20,7 +20,7 @@ class Detector:
         self.metricas: dict = pack.get("metricas", {})
 
     @classmethod
-    def carregar(cls, caminho: str | Path) -> "Detector":
+    def carregar(cls, caminho: str | Path) -> Detector:
         return cls(joblib.load(caminho))
 
     def decidir(self, score: float) -> tuple[str, list[str]]:
