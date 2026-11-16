@@ -10,7 +10,7 @@ Decide `ALLOW`, `REVIEW` ou `BLOCK` para um texto antes de ele chegar a um agent
 | O quê | Quem |
 |---|---|
 | Problema, especificação, README, diagramas, wireframes, OpenAPI em rascunho e baseline da Sprint 1 (pasta `legacy-sprint1/`, preservada **sem alterações**) | Marina Clara Constatino Ribeiro e Yasmin Leite · Challenge Intelliway (FIAP) · Grupo 75 |
-| PromptShield 2.0: pacote `promptshield/`, dataset v2, avaliação, API, testes | Isaque Hidalgo Fortes, com autorização das autoras originais |
+| PromptShield 2.0: pacote `promptshield/`, dataset v2, avaliação, API, testes | Isaque Hidalgo Fortes. **Pendente:** registrar a autorização das autoras por escrito antes de publicar (ver `portfolio-ifood/PLANO_DE_FORTALECIMENTO.md`) |
 
 ## Status real (o que foi executado)
 
