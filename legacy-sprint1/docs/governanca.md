@@ -1,6 +1,6 @@
 # Riscos e governança
 
-Marina Clara Constatino Ribeiro · RM 568576 · Grupo 75 · Sprint 1
+Marina Clara Constatino Ribeiro · Grupo 75 · Sprint 1
 
 ## Privacidade e LGPD
 

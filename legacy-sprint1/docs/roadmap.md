@@ -1,6 +1,6 @@
 # Planejamento das próximas etapas
 
-Marina Clara Constatino Ribeiro · RM 568576 · Grupo 75 · Sprint 1
+Marina Clara Constatino Ribeiro · Grupo 75 · Sprint 1
 
 O documento da Intelliway propõe 4 Sprints (CS 1 a CS 4). A divisão é uma sugestão e depende da validação da coordenação.
 

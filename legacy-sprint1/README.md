@@ -2,7 +2,7 @@
 
 Challenge Intelliway · Sprint 1 · Grupo 75
 
-**Autora:** Marina Clara Constatino Ribeiro (RM 568576) e Yasmin Leite (Rm566645)
+**Autora:** Marina Clara Constatino Ribeiro e Yasmin Leite
 **Vídeo:** https://youtu.be/90xOQlHkS0k
 **Trello:** https://trello.com/invite/b/6ae2bf30d20022bfb184b574/ATTI771197a3083ad598f25a3c836f8da5e43E21B5DC/promptshield-br
 **Prêmio Intelliway:** o grupo quer concorrer ao prêmio de melhor projeto e aceita que a solução seja pública.

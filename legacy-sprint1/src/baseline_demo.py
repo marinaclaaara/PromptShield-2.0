@@ -1,6 +1,6 @@
 """
 baseline_demo.py  -  Demonstração dos dois baselines da Sprint 1
-Autora: Marina Clara Constatino Ribeiro (RM 568576) - Grupo 75
+Autora: Marina Clara Constatino Ribeiro - Grupo 75
 
 OBJETIVO
     Mostrar, de forma simples, os dois pontos de partida do motor:
