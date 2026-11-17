@@ -2,6 +2,7 @@
 
 Detector de prompt injection em **português e inglês**, exposto por uma API FastAPI.
 Decide `ALLOW`, `REVIEW` ou `BLOCK` para um texto antes de ele chegar a um agente de IA.
+Link para acessar o dataset no hugging face: https://huggingface.co/datasets/marinaclara/PromptShield-Dataset
 
 > **Este classificador reduz o risco, não o elimina.** Ele é uma camada, não a defesa completa (ver "Segurança").
 
